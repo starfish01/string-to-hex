@@ -1,15 +1,23 @@
 var express = require('express');
 var app = express();
+app.set('view engine', 'ejs');
 
 
 app.get('/', function (req, res) {    
-    res.send(toHex('SERABCD12'));
+    // res.send(toHex('SERABCD12'));
+    res.render('pages/index', {
+        title: 'SERABCD12',
+        value: toHex('SERABCD12')
+    });
+
 });
 
 app.get('/:convertStrings',(req, res) =>{
     const textToConvert = req.params.convertStrings;
-    res.send(toHex(textToConvert.toUpperCase()));
-
+    res.render('pages/index', {
+        title: textToConvert.toUpperCase(),
+        value: toHex(textToConvert.toUpperCase())
+    });
 });
 
 function toHex(string){
@@ -26,4 +34,4 @@ function toHex(string){
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-  });
+});
